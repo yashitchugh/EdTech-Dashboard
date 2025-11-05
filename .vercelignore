@@ -1,5 +1,5 @@
-.lock
-.toml
+uv.lock
+pyproject.toml
 .python-version
 .venv
 .vscode

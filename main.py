@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 from werkzeug.utils import secure_filename
-from utils.llms import get_resume_content, get_json_output, get_str_output, get_readiness_score
+from utils.llms import get_resume_content, get_json_output, get_str_output, get_readiness_score, is_answer
 from utils.stats import get_performance_score
 from utils.verification import verify_public_badge
+from utils.answer import get_transcription
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -65,5 +66,19 @@ def certificates():
         count = 0
     return render_template('certificates.html',total_crtf=len(content['certifications']),crtf_count= count,pending_crtf=len(content['certifications'])-count,content=content)
 
+
+@app.route('/mock',methods=['get','post'])
+def mock(ques):
+    if not i:
+        i = 0
+    if i < len(ques):
+        return render_template('mock.html',current_ques=i,n_ques=len(ques),question=ques[i])
+    
+    if request.method == 'POST':
+        audio = request.files.get('audio')
+        ans = get_transcription(audio)
+        if is_answer(ques,ans):
+
+            i += 1
 if __name__ == "__main__":
     app.run()

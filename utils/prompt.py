@@ -88,3 +88,8 @@ Each object in that list must have exactly two keys:
 Job Description:
 
 {job_desc}''')
+
+check_prompt =PromptTemplate.from_template( '''
+You are an expert interviewer , check the ques {ques} and verify if the answer given below is the right answer for the ques above 
+Answer : {ans}
+                                           only return ans as True or False.''')

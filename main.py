@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 from werkzeug.utils import secure_filename
-from utils.llms import get_resume_content, get_json_output, get_str_output, get_readiness_score, is_answer
+from utils.llms import get_resume_content, get_json_output, get_str_output, get_readiness_score, is_answer,get_interview_ques
 from utils.stats import get_performance_score
 from utils.verification import verify_public_badge
 from utils.answer import get_transcription
@@ -32,6 +32,7 @@ def upload_resume():
         resume.save(filepath)
         global resume_path
         resume_path = filepath
+        session['desc']=desc
 
     return redirect(url_for('dashboard'))
 
@@ -68,7 +69,9 @@ def certificates():
 
 
 @app.route('/mock',methods=['get','post'])
-def mock(ques):
+def mock_interview():
+    ques = get_interview_ques(session['desc'])
+    del session['desc']
     if not i:
         i = 0
     if i < len(ques):
@@ -80,5 +83,9 @@ def mock(ques):
         if is_answer(ques,ans):
 
             i += 1
+
+
+
+
 if __name__ == "__main__":
     app.run()

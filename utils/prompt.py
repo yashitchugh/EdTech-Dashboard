@@ -87,8 +87,7 @@ Each object in that list must have exactly two keys:
 "questions": A list of strings, where each string is a single interview question.
 Job Description:
 
-{job_desc}
-        Generate only {len} ques''')
+{job_desc}''')
 
 check_prompt =PromptTemplate.from_template( '''
 You are an expert interviewer , check the ques {ques} and verify if the answer given below is the right answer for the ques above 

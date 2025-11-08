@@ -370,11 +370,8 @@
             <!-- Question -->
             <div class="question-section">
                 <div class="question-number">Question {{current_ques}} of {{n_ques}}</div>
-                <div class="question-category">
-                    {{question['category']}}
-                </div>
                 <div class="question-text">
-                    {{ question['questions'][0] or "Tell me about yourself and why you're interested in this position." }}
+                    {{ question or "Tell me about yourself and why you're interested in this position." }}
                 </div>
             </div>
 

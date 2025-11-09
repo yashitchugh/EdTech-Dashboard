@@ -13,6 +13,7 @@ from utils.llms import (
 from utils.stats import get_performance_score
 from utils.verification import verify_public_badge
 from utils.answer import get_transcription
+from utils.ats import calculate_ats_score
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -56,8 +57,11 @@ def dashboard():
     analysis_quote = get_str_output(content)
     readiness_score = get_readiness_score(content)
     performance = 0
-    # ats = get_ats_score(content, desc)
-    ats = 25
+    # Slow since inference calls have high latency
+    # ats = get_ats_score(content, session['desc'])
+    # Latency Improvement 
+    ats = calculate_ats_score(content,session['desc'])['score']
+    # ats = 25
     if json_content:
         if json_content["platform link"]:
             performance = get_performance_score(json_content=json_content)

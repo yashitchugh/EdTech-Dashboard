@@ -189,9 +189,9 @@
             {% for question, data in answers.items() %}
             <div class="result-item">
                 <div class="question-text">{{ question }}</div>
-                <div class="answer-text">{{ data.answer }}</div>
+                <div class="answer-text">{{ data[0] }}</div>
                 <div class="feedback {{ 'correct' if data.feedback == 'True' else 'incorrect' }}">
-                    {% if data.feedback == 'True' %}
+                    {% if data[1] == 'True' %}
                         <i class="fas fa-check-circle"></i>
                         <span>Correct</span>
                     {% else %}

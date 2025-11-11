@@ -14,6 +14,19 @@ from utils.stats import get_performance_score
 from utils.verification import verify_public_badge
 from utils.answer import get_transcription
 from utils.ats import calculate_ats_score
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+from dotenv import load_dotenv
+from utils.test_cases import call_gemini_api
+
+load_dotenv()
+dsn=os.getenv("DSN")
+
+sentry_sdk.init(
+    dsn=dsn,
+    integrations=[FlaskIntegration(),],
+    traces_sample_rate=1.0
+)
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -208,6 +221,21 @@ def submit():
 def results():
     answers = user_answers
     return render_template("results.html", answers=answers)
+
+@app.route('/debug-sentry')
+def trigger_error():
+    # This will raise an exception
+    division_by_zero = 1 / 0
+    return "This won't be reached"
+
+
+@app.route('/test-llm')
+def test_llm_call():
+    # This will run your function, and it will
+    # automatically appear in LangSmith.
+    feedback = call_gemini_api()
+    return feedback
+
 
 
 if __name__ == "__main__":

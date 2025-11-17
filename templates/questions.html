@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview Setup - PlacementReady</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(to bottom right, #eff6ff, #faf5ff);
+            min-height: 100vh;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #111827;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        main {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .hero .highlight {
+            color: #2563eb;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #4b5563;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .setup-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-label {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .selected-count {
+            color: #2563eb;
+        }
+
+        .button-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .button-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .button-grid.four-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 768px) {
+            .button-grid.four-col {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .option-btn {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            border-color: #93c5fd;
+        }
+
+        .option-btn.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .topic-btn {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .topic-btn:hover {
+            border-color: #93c5fd;
+        }
+
+        .topic-btn.active {
+            border-color: #2563eb;
+            background: #2563eb;
+            color: white;
+        }
+
+        .difficulty-easy.active {
+            border-color: #10b981;
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .difficulty-medium.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .difficulty-hard.active {
+            border-color: #9333ea;
+            background: #faf5ff;
+            color: #9333ea;
+        }
+
+        .slider-container {
+            margin-bottom: 0.5rem;
+        }
+
+        .slider {
+            width: 100%;
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 1rem;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: #2563eb;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 1.25rem;
+            height: 1.25rem;
+            background: #2563eb;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .time-labels {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-start {
+            width: 100%;
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: none;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-icon.blue {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .feature-icon.purple {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .feature-icon.green {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        .icon-clock::before {
+            content: "⏱️";
+        }
+
+        .icon-zap::before {
+            content: "⚡";
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                gap: 1rem;
+            }
+            
+            nav a:not(.btn-primary) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🎓</div>
+                <span class="logo-text">PlacementReady</span>
+            </div>
+            <nav>
+                <a href="#">Features</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <button class="btn-primary">Dashboard</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Prepare for Your <span class="highlight">Mock Interview</span></h1>
+            <p>Customize your practice session with AI-powered interviews tailored to your needs</p>
+        </div>
+
+        <div class="setup-card">
+            <div class="section">
+                <label class="section-label">Interview Type</label>
+                <div class="button-grid three-col">
+                    <button class="option-btn active" data-type="technical">Technical</button>
+                    <button class="option-btn" data-type="behavioral">Behavioral</button>
+                    <button class="option-btn" data-type="mixed">Mixed</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <label class="section-label">
+                    Number of Questions: <span class="selected-count" id="questionCount">5</span>
+                </label>
+                <div class="slider-container">
+                    <input type="range" min="3" max="15" value="5" class="slider" id="questionSlider" name="n_ques">
+                </div>
+                <div class="slider-labels">
+                    <span>3 questions</span>
+                    <span>15 questions</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <label class="section-label">
+                    Select Topics <span class="selected-count" id="topicCount"></span>
+                </label>
+                <div class="button-grid four-col" id="topicsGrid">
+                    <button class="topic-btn" data-topic="Data Structures">Data Structures</button>
+                    <button class="topic-btn" data-topic="Algorithms">Algorithms</button>
+                    <button class="topic-btn" data-topic="System Design">System Design</button>
+                    <button class="topic-btn" data-topic="Databases">Databases</button>
+                    <button class="topic-btn" data-topic="Web Development">Web Development</button>
+                    <button class="topic-btn" data-topic="OOP">Object-Oriented Programming</button>
+                    <button class="topic-btn" data-topic="Operating Systems">Operating Systems</button>
+                    <button class="topic-btn" data-topic="Networking">Networking</button>
+                    <button class="topic-btn" data-topic="Cloud Computing">Cloud Computing</button>
+                    <button class="topic-btn" data-topic="Machine Learning">Machine Learning</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <label class="section-label">Difficulty Level</label>
+                <div class="button-grid three-col">
+                    <button class="option-btn difficulty-easy" data-difficulty="easy">Easy</button>
+                    <button class="option-btn difficulty-medium active" data-difficulty="medium">Medium</button>
+                    <button class="option-btn difficulty-hard" data-difficulty="hard">Hard</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <label class="section-label">
+                    <span class="icon-clock"></span> Time per Question: <span class="selected-count" id="timeCount">30</span> minutes
+                </label>
+                <div class="slider-container">
+                    <input type="range" min="15" max="60" step="15" value="30" class="slider" id="timeSlider">
+                </div>
+                <div class="slider-labels time-labels">
+                    <span>15 min</span>
+                    <span>30 min</span>
+                    <span>45 min</span>
+                    <span>60 min</span>
+                </div>
+            </div>
+
+            <button class="btn-start" id="startBtn">
+                <span class="icon-zap"></span>
+                Start Mock Interview
+            </button>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon blue">🎯</div>
+                <h3>AI-Powered Feedback</h3>
+                <p>Get detailed analysis and suggestions on your answers to improve faster</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon purple">💬</div>
+                <h3>Real-time Conversation</h3>
+                <p>Practice with voice or text in a realistic interview environment</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon green">📈</div>
+                <h3>Track Progress</h3>
+                <p>Monitor your improvement with detailed analytics and performance metrics</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let state = {
+            interviewType: 'technical',
+            numQuestions: 5,
+            selectedTopics: [],
+            difficulty: 'medium',
+            timeLimit: 30
+        };
+
+        var typeButtons = document.querySelectorAll('[data-type]');
+        for (var i = 0; i < typeButtons.length; i++) {
+            typeButtons[i].addEventListener('click', function() {
+                var allButtons = document.querySelectorAll('[data-type]');
+                for (var j = 0; j < allButtons.length; j++) {
+                    allButtons[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                state.interviewType = this.getAttribute('data-type');
+            });
+        }
+
+        var questionSlider = document.getElementById('questionSlider');
+        var questionCount = document.getElementById('questionCount');
+        questionSlider.addEventListener('input', function() {
+            state.numQuestions = this.value;
+            questionCount.textContent = this.value;
+        });
+
+        var topicsGrid = document.getElementById('topicsGrid');
+        var topicCount = document.getElementById('topicCount');
+        
+        topicsGrid.addEventListener('click', function(e) {
+            if (e.target.classList.contains('topic-btn')) {
+                e.target.classList.toggle('active');
+                var topic = e.target.getAttribute('data-topic');
+                
+                var index = state.selectedTopics.indexOf(topic);
+                if (index > -1) {
+                    state.selectedTopics.splice(index, 1);
+                } else {
+                    state.selectedTopics.push(topic);
+                }
+                
+                updateTopicCount();
+            }
+        });
+
+        function updateTopicCount() {
+            if (state.selectedTopics.length > 0) {
+                topicCount.textContent = '(' + state.selectedTopics.length + ' selected)';
+            } else {
+                topicCount.textContent = '';
+            }
+        }
+
+        var diffButtons = document.querySelectorAll('[data-difficulty]');
+        for (var i = 0; i < diffButtons.length; i++) {
+            diffButtons[i].addEventListener('click', function() {
+                var allDiffButtons = document.querySelectorAll('[data-difficulty]');
+                for (var j = 0; j < allDiffButtons.length; j++) {
+                    allDiffButtons[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                state.difficulty = this.getAttribute('data-difficulty');
+            });
+        }
+
+        var timeSlider = document.getElementById('timeSlider');
+        var timeCount = document.getElementById('timeCount');
+        timeSlider.addEventListener('input', function() {
+            state.timeLimit = this.value;
+            timeCount.textContent = this.value;
+        });
+
+        document.getElementById('startBtn').addEventListener('click', function() {
+            if (state.selectedTopics.length === 0) {
+                alert('Please select at least one topic');
+                return;
+            }
+            
+            // var message = 'Starting ' + state.interviewType + ' interview with ' + state.numQuestions + ' questions from: ' + state.selectedTopics.join(', ') + '\nDifficulty: ' + state.difficulty + '\nTime per question: ' + state.timeLimit + ' minutes';
+            // alert(message);
+            form = new FormData();
+            form.append('interviewType',state.interviewType);
+            form.append('n_ques',state.numQuestions);
+            form.append('selectedTopics',state.selectedTopics);
+            form.append('difficulty',state.difficulty);
+            form.append('timeLimit',state.timeLimit);
+            let send = fetch('/mock-prep',{method:'POST',body:form})
+        });
+    </script>
+</body>
+</html>

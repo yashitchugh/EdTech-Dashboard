@@ -18,7 +18,7 @@ import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from dotenv import load_dotenv
 from utils.test_cases import call_gemini_api
-from utils.app import app,db
+from utils.app import app, db
 from werkzeug.security import generate_password_hash, check_password_hash
 from utils.models import (
     InterviewAnswer,
@@ -29,13 +29,16 @@ from utils.models import (
     JobDescription,
     Resume,
 )
+
 load_dotenv()
-dsn=os.getenv("DSN")
+dsn = os.getenv("DSN")
 
 sentry_sdk.init(
     dsn=dsn,
-    integrations=[FlaskIntegration(),],
-    traces_sample_rate=1.0
+    integrations=[
+        FlaskIntegration(),
+    ],
+    traces_sample_rate=1.0,
 )
 
 resume_path = 0
@@ -55,6 +58,7 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 def home():
     return render_template("index.html")
 
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
@@ -65,7 +69,7 @@ def signup():
         # Hash password using Werkzeug
         hashed_password = generate_password_hash(password)
 
-        new_user = User(username=username, email=email, password=hashed_password)
+        new_user = User(name=username, email=email, password_hash=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 
@@ -82,7 +86,7 @@ def login():
         password = request.form["password"]
 
         user = User.query.filter_by(email=email).first()
-
+        session['user'] = user
         if user and check_password_hash(user.password, password):
             session["user"] = user.username
             return redirect("/")
@@ -90,7 +94,6 @@ def login():
             return "Invalid email or password"
 
     return render_template("login.html")
-    
 
 
 @app.route("/upload_resume", methods=["post"])
@@ -102,9 +105,11 @@ def upload_resume():
         desc = request.form["job_description"]
         session["desc"] = desc
         resume.save(filepath)
-        global resume_path
-        resume_path = filepath
+        user = session['user']
+        # resume_path = filepath
         resume = Resume()
+        if os.path.exists(filepath):
+            os.remove(filepath)
         # session["desc"] = desc
 
     return redirect(url_for("dashboard"))
@@ -271,20 +276,20 @@ def results():
     answers = user_answers
     return render_template("results.html", answers=answers)
 
-@app.route('/debug-sentry')
+
+@app.route("/debug-sentry")
 def trigger_error():
     # This will raise an exception
     division_by_zero = 1 / 0
     return "This won't be reached"
 
 
-@app.route('/test-llm')
+@app.route("/test-llm")
 def test_llm_call():
     # This will run your function, and it will
     # automatically appear in LangSmith.
     feedback = call_gemini_api()
     return feedback
-
 
 
 if __name__ == "__main__":

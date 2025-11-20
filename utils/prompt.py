@@ -1,6 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
-prompt_extract = PromptTemplate(template="""
+prompt_extract = PromptTemplate(
+    template="""
         ### SCRAPED TEXT FROM RESUME:
         {resume_data}
         ### INSTRUCTION:
@@ -14,9 +15,11 @@ prompt_extract = PromptTemplate(template="""
         'date earned': [date1, date2,date3],
  'platform link': [link1,link2,link]}}"
         ### VALID JSON (NO PREAMBLE):    
-        """,input_variables=['resume_data'])
+        """,
+    input_variables=["resume_data"],
+)
 
-analyser_prompt = PromptTemplate.from_template('''You are a senior technical recruiter, skilled at 10-second resume reviews.
+analyser_prompt = PromptTemplate.from_template("""You are a senior technical recruiter, skilled at 10-second resume reviews.
 
 Analyze the resume below, which is for a candidate targeting a technical role.
 
@@ -29,10 +32,10 @@ Examples of desired format:
 * “Improve focus on SQL and data visualization.”
 
 Resume Content:
-{resume_content}''')
+{resume_content}""")
 
 
-readiness_prompt = PromptTemplate.from_template('''You are a senior technical recruiter with deep experience in evaluating resumes for software engineering, data science, and other technical roles.
+readiness_prompt = PromptTemplate.from_template("""You are a senior technical recruiter with deep experience in evaluating resumes for software engineering, data science, and other technical roles.
 
 Review the following resume content carefully and perform a 10-second recruiter-style evaluation focused on job readiness for a technical role.
 
@@ -62,12 +65,12 @@ Resume Content:
 {resume_content}
                                                 
                                                 Do not return any kind of text in the output
-        ''')
+        """)
 
-interview_prompt = PromptTemplate.from_template('''
+interview_prompt = PromptTemplate.from_template("""
     Persona: You are an expert technical interviewer with over a decade of experience hiring for data science and analytics teams. You specialize in evaluating entry-level (fresher) talent.
 
-Context: Your goal is to create a robust interview question bank for the "Junior Data Scientist" role. The questions must be appropriate for a candidate with primarily academic and project-based experience (a fresher).
+Context: Your goal is to create a robust interview question bank for the role discussed in description. The questions must be appropriate for a candidate with primarily academic and project-based experience (a fresher).
 
 Task: Refer to the job description provided below. Generate a comprehensive list of interview questions.
 
@@ -87,12 +90,12 @@ Each object in that list must have exactly two keys:
 "questions": A list of strings, where each string is a single interview question.
 Job Description:
 
-{job_desc}''')
+{job_desc}""")
 
-check_prompt =PromptTemplate.from_template( '''
+check_prompt = PromptTemplate.from_template("""
 You are an expert interviewer , check the ques {ques} and verify if the answer given below is the right answer for the ques above 
 Answer : {ans}
-                                           only return ans as True or False.''')
+                                           only return ans as True or False.""")
 
 ats_prompt = PromptTemplate.from_template("""
     You are an expert ATS (Applicant Tracking System) and a professional tech recruiter.
@@ -127,3 +130,11 @@ ats_prompt = PromptTemplate.from_template("""
 + Do not include markdown fences like ```json, introductions, or any other text.
 + Your entire response must be the raw JSON string.
     """)
+
+cover_letter_prompt = PromptTemplate.from_template("""You are an expert,proffesional cover letter writer . Your task is to create a proffesional one page cover letter .
+                                                   Only use the content from job description and resume content and write a cover letter using this information only.
+                                                   Job description:
+                                                   {job_desc}
+                                                   
+                                                   Resume content:
+                                                   {resume}""")

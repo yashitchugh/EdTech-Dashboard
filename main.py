@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import render_template, request, redirect, url_for, session, jsonify
 import os
 from werkzeug.utils import secure_filename
 from utils.llms import (
@@ -30,7 +30,7 @@ from utils.models import (
     JobDescription,
     Resume,
 )
-from uuid import UUID
+
 
 load_dotenv()
 dsn = os.getenv("DSN")
@@ -278,6 +278,12 @@ def mock_interview():
     #     },
     # ]
     # ques = ques[:5]
+    user_id = session["user_id"]
+    jobapplication = JobApplication.query.filter_by(user_id=user_id).first()
+    interview = MockInterview(application_id=jobapplication.application_id)
+    session["application_id"] = jobapplication.application_id
+    db.session.add(interview)
+    db.session.commit()
     return render_template(
         "mock.html",
         current_ques=0,
@@ -299,6 +305,7 @@ def submit():
         # if "user_answers" not in session:
         #     session["user_answers"] = {}
         is_right = is_answer(ques, ans)
+        # is_right = False
         user_answers[ques] = (ans, is_right)
         print(user_answers)
         return jsonify({"is_answer": is_right, "message": "Your Answer is Submitted"})
@@ -307,6 +314,21 @@ def submit():
 @app.route("/results")
 def results():
     answers = user_answers
+    application_id = session["application_id"]
+    interview = MockInterview.query.filter_by(application_id=application_id).first()
+    # k = question and   v-> (answer,is_right)
+    for k in answers.keys():
+        question = InterviewQuestion(
+            interview_id=interview.interview_id, question_text=k
+        )
+        v = answers[k]
+        db.session.add(question)
+        db.session.flush()
+        answer = InterviewAnswer(
+            question_id=question.question_id, transcription=v[0], is_active=v[1]
+        )
+        db.session.add(answer)
+        db.session.commit()
     return render_template("results.html", answers=answers)
 
 
@@ -314,6 +336,7 @@ def results():
 def trigger_error():
     # This will raise an exception
     division_by_zero = 1 / 0
+    division_by_zero += 0
     return "This won't be reached"
 
 
@@ -326,4 +349,4 @@ def test_llm_call():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

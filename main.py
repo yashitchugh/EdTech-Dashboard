@@ -145,7 +145,7 @@ def dashboard():
     session["content"] = json_content
     analysis_quote = get_str_output(content)
     readiness_score = get_readiness_score(content)
-    performance = 0
+    # performance = 0
     # Slow since inference calls have high latency
     # ats = get_ats_score(content, session['desc'])
     # Latency Improvement

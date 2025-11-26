@@ -11,9 +11,11 @@ prompt_extract = PromptTemplate(
         Only return the valid JSON. Store records of a key in form of list always.if a key has multiple values store those values in the form of a list .
         Refer to the Example :
        " {{'certifications': [certificate1,certificate2,certificate3],
-        'issuing authority': [Company1,Company2,Company3],
-        'date earned': [date1, date2,date3],
- 'platform link': [link1,link2,link]}}"
+        'issuing_authority': [Company1,Company2,Company3],
+        'date_earned': [date1, date2,date3],
+ 'platform_link': [link1,link2,link]}}"
+ follow format given for dates  
+ date_format = "%Y-%m-%d" 
         ### VALID JSON (NO PREAMBLE):    
         """,
     input_variables=["resume_data"],
@@ -30,7 +32,9 @@ Examples of desired format:
 * “Add a dedicated 'Technical Skills' section.”
 * “Tailor your summary to the job description.”
 * “Improve focus on SQL and data visualization.”
-
+return the output in form of a list
+for example:
+            [quote1,quote2,quote3]
 Resume Content:
 {resume_content}""")
 
@@ -152,7 +156,7 @@ cover_letter_prompt = PromptTemplate.from_template("""You are an expert,proffesi
 job_details_prompt = PromptTemplate.from_template("""You are an expert Analyser who is good with knowledge related to jobs and job descriptions 
                                                   Your task is to extract Job title and Company name from the job description given below in the form of a valid json
                                                   it should like like the example below:
-                                                  {{'title':"Data Scintist",
+                                                  {{"title":"Data Scintist",
                                                   "company':"google"}}
                                                   
                                                   Job description:

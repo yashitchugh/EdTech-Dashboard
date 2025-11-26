@@ -3,13 +3,8 @@ import os
 from werkzeug.utils import secure_filename
 from utils.llms import (
     get_resume_content,
-    get_json_output,
-    get_str_output,
-    get_readiness_score,
     is_answer,
     get_interview_ques,
-    get_ats_score,
-    get_job_details,
 )
 from utils.stats import get_performance_score
 from utils.verification import verify_public_badge
@@ -30,6 +25,7 @@ from utils.models import (
     JobDescription,
     Resume,
 )
+from utils.graphs import dashboard_workflow
 
 
 load_dotenv()
@@ -133,7 +129,8 @@ def dashboard():
     resume = Resume.query.filter_by(user_id=user_id).first()
     content = resume.resume_text
     desc = session["desc"]
-    details = get_job_details(desc)
+    state = dashboard_workflow.invoke({"resume_text": content, "job_desc": desc})
+    details = state["job_details"]
     if not details["title"]:
         return redirect(url_for("home"))
     job_desc = JobDescription(
@@ -141,15 +138,15 @@ def dashboard():
     )
     db.session.add(job_desc)
     db.session.flush()
-    json_content = get_json_output(content)
+    json_content = state["candidate_details"]
     session["content"] = json_content
-    analysis_quote = get_str_output(content)
-    readiness_score = get_readiness_score(content)
-    # performance = 0
+    analysis_quote = state["analysis_quote"]
+    readiness_score = state["readiness_score"]
+    performance = 0
     # Slow since inference calls have high latency
     # ats = get_ats_score(content, session['desc'])
     # Latency Improvement
-    ats = calculate_ats_score(content, session["desc"])["score"]
+    ats = state["ats"]["match_score"]
     # ats = 25
     n_crtf = len(json_content["certifications"])
     job_application = JobApplication(
@@ -161,7 +158,7 @@ def dashboard():
         certifications_count=n_crtf,
     )
     if json_content:
-        if json_content["platform link"]:
+        if json_content["platform_link"]:
             performance = get_performance_score(json_content=json_content)
         job_application.query.update(values={"certifications_count": n_crtf})
     else:

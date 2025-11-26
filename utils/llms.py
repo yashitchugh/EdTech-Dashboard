@@ -74,7 +74,7 @@ def get_ats_score(resume_content, job_desc):
         jd_text=RunnableLambda(lambda x: x["jd_text"]),
         resume_text=RunnableLambda(lambda x: x["resume_text"]),
     )
-    chain = process_inputs | ats_prompt | llm | StrOutputParser() | JsonOutputParser
+    chain = process_inputs | ats_prompt | llm | StrOutputParser() | JsonOutputParser()
     return chain.invoke({"jd_text": job_desc, "resume_text": resume_content})
 
 
@@ -88,7 +88,7 @@ def generate_cover_letter(resume_content, job_desc):
         | cover_letter_prompt
         | llm
         | StrOutputParser()
-        | JsonOutputParser
+        | JsonOutputParser()
     )
     return chain.invoke({"job_desc": job_desc, "resume": resume_content})
 

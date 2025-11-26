@@ -9,6 +9,11 @@ class JobDetails(TypedDict):
     title: str
     company: str
 
+class ATS(TypedDict):
+    match_score: float
+    summary: str
+    matched_skills: List[str]
+    missing_skills:List[str]
 
 class Candidate(TypedDict):
     certifications: List[str]
@@ -24,11 +29,12 @@ class DashboardState(TypedDict):
     candidate_details: Candidate
     analysis_quote: List[str]
     readiness_score: float
-    ats_score: float
+    ats:ATS
 
 def ats(state:DashboardState):
     content = state['resume_text']
-    ats = get_ats_score(content)
+    desc = state['job_desc']
+    ats = get_ats_score(content,job_desc=desc)
     return {'ats':ats}
 def job_details(state:DashboardState):
     desc = state['job_desc']
@@ -67,4 +73,4 @@ graph.add_edge('readiness_score',END)
 graph.add_edge('job_details',END)
 graph.add_edge('candidate_details',END)
 
-workflow = graph.compile()
+dashboard_workflow = graph.compile()

@@ -186,8 +186,8 @@ def dashboard():
 def certificates():
     content = session["content"]
     del session["content"]
-    if content["certificate links"]:
-        list = content["certificate links"]
+    if content["certificate_links"]:
+        list = content["certificate_links"]
         count = 0
         for i in range(len(list)):
             if verify_public_badge(list[i]):

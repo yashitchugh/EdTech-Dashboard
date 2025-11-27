@@ -9,7 +9,8 @@ from utils.llms import (
 from utils.stats import get_performance_score
 from utils.verification import verify_public_badge
 from utils.answer import get_transcription
-from utils.ats import calculate_ats_score
+
+# from utils.ats import calculate_ats_score
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from dotenv import load_dotenv
@@ -87,11 +88,16 @@ def login():
         session["user"] = user
         if user and check_password_hash(user.password, password):
             session["user"] = user.username
-            return redirect("/")
+            return redirect("/user_dashboard")
         else:
             return "Invalid email or password"
 
     return render_template("login.html")
+
+
+@app.route("/user_dashboard")
+def user_dashboard():
+    return render_template("user_dashboard.html")
 
 
 @app.route("/upload_resume", methods=["post"])
@@ -167,7 +173,7 @@ def dashboard():
     db.session.add(job_application)
     db.session.commit()
     return render_template(
-        "dashboard.html",
+        "analysis_dashboard.html",
         quote=analysis_quote,
         readiness_score=readiness_score,
         n_crtf=n_crtf,

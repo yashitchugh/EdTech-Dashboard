@@ -124,8 +124,8 @@ def upload_resume():
         session["user_id"] = user.id
         # resume_path = filepath
         resume = Resume(user_id=user.id, resume_text=content)
-        if os.path.exists(filepath):
-            os.remove(filepath)
+        # if os.path.exists(filepath):
+        #     os.remove(filepath)
         # session["desc"] = desc
         db.session.add(resume)
         db.session.commit()
@@ -357,6 +357,9 @@ def test_llm_call():
     feedback = call_gemini_api()
     return feedback
 
+@app.route('/result-dashboard')
+def result_dashboard():
+    return render_template('result_dashboard.html')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

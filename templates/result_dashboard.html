@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Analysis - PlacementReady</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <aside class="w-20 lg:w-64 bg-white border-r border-gray-100 flex flex-col">
+            <div class="h-16 flex items-center justify-center border-b border-gray-50">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg text-white font-bold flex items-center justify-center">P</div>
+            </div>
+            <nav class="flex-1 py-6 space-y-2 px-2">
+                <a href="#" class="flex items-center p-3 text-gray-500 hover:bg-gray-50 rounded-xl transition">
+                    <svg class="w-6 h-6 lg:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    <span class="hidden lg:inline font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center p-3 bg-blue-50 text-blue-600 rounded-xl transition">
+                    <svg class="w-6 h-6 lg:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 012 2h2a2 2 0 012-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span class="hidden lg:inline font-medium">Analysis Report</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto p-4 lg:p-8">
+            
+            <div class="mb-6 flex items-center text-sm text-gray-500">
+                <a href="#" class="hover:text-blue-600">Home</a>
+                <span class="mx-2">/</span>
+                <a href="#" class="hover:text-blue-600">Mock Interview #45</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-800 font-semibold">Results & Analysis</span>
+            </div>
+
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Interview Performance Report</h1>
+                    <p class="text-gray-500 mt-1">Role: <span class="font-semibold text-blue-600">Data Analyst at Google</span> • Duration: 15m 30s</p>
+                </div>
+                <button class="bg-white border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-50 transition flex items-center shadow-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download PDF
+                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                    <div class="text-center border-r border-gray-100 last:border-0">
+                        <h3 class="text-gray-500 font-medium mb-4 uppercase tracking-wide text-xs">Employability Score</h3>
+                        <div class="relative w-40 h-20 mx-auto overflow-hidden">
+                             <div class="w-40 h-40 rounded-full border-[12px] border-gray-100 border-t-blue-600 border-l-blue-600 transform -rotate-45 box-border"></div>
+                             <div class="absolute bottom-0 left-0 w-full text-center">
+                                 <span class="text-4xl font-bold text-gray-800">78</span><span class="text-xl text-gray-400">/100</span>
+                             </div>
+                        </div>
+                        <p class="text-sm text-green-600 font-semibold mt-2">Ready for Application</p>
+                    </div>
+
+                    <div class="flex flex-col justify-center border-r border-gray-100 last:border-0 px-4">
+                        <div class="flex items-center mb-2">
+                            <div class="p-2 bg-green-100 text-green-600 rounded-lg mr-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-700">Top Strength</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Your technical definitions for <span class="font-semibold text-gray-900">SQL Joins</span> were precise and well-structured.</p>
+                    </div>
+
+                    <div class="flex flex-col justify-center px-4">
+                        <div class="flex items-center mb-2">
+                            <div class="p-2 bg-red-100 text-red-600 rounded-lg mr-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-700">Main Weakness</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Answers regarding <span class="font-semibold text-gray-900">Team Conflict</span> lacked the 'STAR' method structure.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                
+                
+
+[Image of radar chart]
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                        <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>
+                        Skill Distribution
+                    </h3>
+                    <div class="h-64 flex justify-center">
+                        <canvas id="skillsRadar"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-2">Based on 6 questions in this session</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                        <span class="w-2 h-6 bg-purple-600 rounded-full mr-3"></span>
+                        Communication Analysis
+                    </h3>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-50 p-3 rounded-xl text-center">
+                            <p class="text-xs text-gray-500 uppercase">WPM</p>
+                            <p class="text-xl font-bold text-gray-800">145</p>
+                            <span class="text-xs text-green-500">Perfect Pace</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl text-center">
+                            <p class="text-xs text-gray-500 uppercase">Filler Words</p>
+                            <p class="text-xl font-bold text-red-500">12</p>
+                            <span class="text-xs text-red-400">Too High</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl text-center">
+                            <p class="text-xs text-gray-500 uppercase">Confidence</p>
+                            <p class="text-xl font-bold text-blue-600">High</p>
+                            <span class="text-xs text-gray-400">Tone Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="h-32 w-full">
+                        <canvas id="paceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100">
+                        <h3 class="font-bold text-gray-800">Deep Dive Feedback</h3>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 text-red-500 flex items-center justify-center mt-1">
+                                <span class="font-bold text-sm">1</span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">Missed Technical Keywords</h4>
+                                <p class="text-sm text-gray-600 mt-1">In Question 3 ("Explain Normalization"), you missed mentioning <span class="bg-gray-100 px-1 rounded text-gray-800 font-mono text-xs">3rd Normal Form</span> and <span class="bg-gray-100 px-1 rounded text-gray-800 font-mono text-xs">Redundancy</span>.</p>
+                                <a href="#" class="text-blue-600 text-xs font-semibold mt-2 inline-block hover:underline">Review Q3 Transcript &rarr;</a>
+                            </div>
+                        </div>
+                         <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mt-1">
+                                <span class="font-bold text-sm">2</span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">Sentence Structure</h4>
+                                <p class="text-sm text-gray-600 mt-1">Your answer to "Why Google?" was a bit circular. Try to connect your personal projects directly to Google's core values.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 p-6 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">What's Next?</h3>
+                        <p class="text-blue-100 text-sm mb-6">Based on this session, we recommend practicing Behavioral questions.</p>
+                        
+                        <div class="bg-blue-700 bg-opacity-50 rounded-xl p-4 mb-3 cursor-pointer hover:bg-blue-700 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-sm">Retake Technical Quiz</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                        </div>
+                        <div class="bg-white text-blue-600 rounded-xl p-4 cursor-pointer hover:bg-gray-50 transition shadow-md">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm">Start Behavioral Session</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // 1. Radar Chart for Skills
+        const ctxRadar = document.getElementById('skillsRadar').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Technical Knowledge', 'Communication', 'STAR Method', 'Confidence', 'Relevance'],
+                datasets: [{
+                    label: 'This Session',
+                    data: [8, 6, 5, 9, 7], // Dummy data
+                    fill: true,
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: '#2563EB',
+                    pointBackgroundColor: '#2563EB',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#2563EB'
+                }]
+            },
+            options: {
+                elements: { line: { borderWidth: 3 } },
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 2. Bar Chart for Speaking Pace/Filler Words
+        const ctxPace = document.getElementById('paceChart').getContext('2d');
+        new Chart(ctxPace, {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'],
+                datasets: [{
+                    label: 'Filler Words Used',
+                    data: [2, 5, 1, 0, 4],
+                    backgroundColor: '#EF4444', // Red for errors
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, grid: { display: false } }, x: { grid: { display: false } } }
+            }
+        });
+    </script>
+</body>
+</html>

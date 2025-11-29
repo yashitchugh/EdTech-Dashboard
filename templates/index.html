@@ -418,11 +418,11 @@
 
         // Smooth natural loading until ~95%
         const interval = setInterval(() => {
-          if (progress < 95) {
+          if (progress < 98) {
             progress += Math.floor(Math.random() * 4) + 1; // +1 to +4
           }
 
-          if (progress > 95) progress = 95;
+          if (progress > 98) progress = 98;
 
           progressBar.style.width = progress + "%";
           progressLabel.textContent = progress + "%";
@@ -437,7 +437,7 @@
         }, 120);
 
         // Fake backend complete time (2–4 sec)
-        const backendTime = Math.random() * 2000 + 2000;
+        const backendTime = Math.random() * 2000 + 10000;
 
         setTimeout(() => {
           clearInterval(interval);
